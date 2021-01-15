@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  app:
+    build: .
+    container_name: 'api-example'
+    volumes:
+      - .:/usr/app
+    ports:
+      - 3777:3777
+    command: sh ./exec.sh
+    depends_on:
+      - db
+    networks:
+      - overlay
+  db:
+    image: postgres:alpine
+    container_name: db-example
+    networks:
+      - overlay
+    ports:
+      - '5432:5432'
+    volumes:
+      - /var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USER_DEV}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD_DEV}
+      POSTGRES_NAME: ${DATABASE_NAME_DEV}
+    restart: on-failure
+      
+networks:
+    overlay:

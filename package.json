@@ -1,0 +1,28 @@
+{
+  "name": "lemoney-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "dev": "nodemon src/main/server.js",
+    "test": "jest --watchAll"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.826.0",
+    "axios": "^0.21.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "knex": "^0.21.1",
+    "pg": "^8.0.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.19",
+    "jest": "^25.3.0",
+    "nodemon": "^2.0.6",
+    "supertest": "^6.0.1"
+  }
+}
