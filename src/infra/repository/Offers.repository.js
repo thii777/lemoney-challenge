@@ -25,6 +25,8 @@ class OffersService {
   }
 
   async update(offers) {
+    delete offers.advertiser_name;
+
     return await connection("offers")
       .where({ id: offers.id })
       .update(offers, ["state"]);

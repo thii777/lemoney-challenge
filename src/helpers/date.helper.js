@@ -1,4 +1,5 @@
 const moment = require("moment-timezone");
+
 class FormatDate {
   offerDate(beforeDate) {
     const parsedDate = moment

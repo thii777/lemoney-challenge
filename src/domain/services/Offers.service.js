@@ -19,12 +19,13 @@ class OffersService {
     let { enable, disable } = await validOffers(offers);
 
     disable = alterToDisable(disable);
+
     const parallel = new Parallel({
       items: disable,
       repository: OffersRepository,
       method: "update",
     });
-    disable = await parallel.execute(offers);
+    await parallel.execute(offers);
 
     return enable;
   }

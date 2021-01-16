@@ -6,11 +6,11 @@ class Parallel {
   }
 
   async execute() {
-    return this.items;
     const response = [];
 
-    for (const item of this.items) {
+    for (const item of await this.items) {
       const created = await this.repository[this.method](item);
+      
       response.push(...created);
     }
 

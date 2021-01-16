@@ -14,6 +14,7 @@ class OffersController {
 
       return res.status(201).json(results);
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .send({ statusCode: 500, message: "Sorry, something broke" });
@@ -28,6 +29,7 @@ class OffersController {
 
       return res.status(200).json(offers);
     } catch (error) {
+      console.log(error);
       return res
         .status(500)
         .send({ statusCode: 500, message: "Sorry, something broke" });
