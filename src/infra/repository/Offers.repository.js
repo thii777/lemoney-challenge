@@ -10,7 +10,7 @@ class OffersService {
       .join("advertisers", "offers.advertiser_id", "advertisers.id")
       .limit(10)
       .offset((page - 1) * 10)
-      .where({ state: "enable",  })
+      .where({ state: "enable" })
       .orderBy("premium", "desc")
       .select(
         { id: "offers.id" },
@@ -22,6 +22,12 @@ class OffersService {
         { description: "offers.description" },
         { url: "offers.url" }
       );
+  }
+
+  async update(offers) {
+    return await connection("offers")
+      .where({ id: offers.id })
+      .update(offers, ["state"]);
   }
 }
 

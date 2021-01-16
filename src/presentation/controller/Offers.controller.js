@@ -2,16 +2,22 @@ const OffersService = require("../../domain/services/Offers.service");
 
 class OffersController {
   async store({ body: offers }, res) {
-    const results = await OffersService.store({ payload: offers });
+    try {
+      const results = await OffersService.store({ payload: offers });
 
-    if (results.error) {
-      return res.status(400).json({
-        statusCode: 400,
-        message: `missing data: ${results.error}`,
-      });
+      if (results.error) {
+        return res.status(400).json({
+          statusCode: 400,
+          message: `missing data: ${results.error}`,
+        });
+      }
+
+      return res.status(201).json(results);
+    } catch (error) {
+      return res
+        .status(500)
+        .send({ statusCode: 500, message: "Sorry, something broke" });
     }
-
-    return res.status(201).json(results);
   }
 
   async list({ query }, res) {
@@ -21,7 +27,11 @@ class OffersController {
       let offers = await OffersService.list({ page });
 
       return res.status(200).json(offers);
-    } catch (error) {}
+    } catch (error) {
+      return res
+        .status(500)
+        .send({ statusCode: 500, message: "Sorry, something broke" });
+    }
   }
 }
 
