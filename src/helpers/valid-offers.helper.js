@@ -18,7 +18,10 @@ module.exports = async (offers) => {
       enable.push(offer);
     }
 
-    if (currentTime.replace(/\D/g, "") >= ends_at.replace(/\D/g, "")) {
+    if (
+      currentTime.replace(/\D/g, "") <= starts_at.replace(/\D/g, "") ||
+      currentTime.replace(/\D/g, "") >= ends_at.replace(/\D/g, "")
+    ) {
       disable.push(offer);
     }
   }
