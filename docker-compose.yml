@@ -3,7 +3,7 @@ version: '3'
 services:
   app:
     build: .
-    container_name: 'api-example'
+    container_name: 'api-lemoney'
     volumes:
       - .:/usr/app
     ports:
@@ -15,7 +15,7 @@ services:
       - overlay
   db:
     image: postgres:alpine
-    container_name: db-example
+    container_name: db-lemoney
     networks:
       - overlay
     ports:

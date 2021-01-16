@@ -3,11 +3,7 @@ const { isValidFields } = require("../validator/validField");
 
 class OffersService {
   async store({ payload }) {
-    const validField = await isValidFields(payload, [
-      "advertiser_name",
-      "url",
-      "description"
-    ]);
+    const validField = await isValidFields(payload, ["url", "description"]);
 
     if (validField.error) return validField;
 

@@ -1,9 +1,9 @@
-const OffersService = require("../../domain/services/Offers.service");
+const AdvertisersService = require("../../domain/services/Advertisers.service");
 
-class OffersController {
-  async store({ body: offers }, res) {
+class AdvertisersController {
+  async store({ body: advertisers }, res) {
     try {
-      const results = await OffersService.store({ payload: offers });
+      const results = await AdvertisersService.store({ payload: advertisers });
 
       if (results.error) {
         return res.status(400).json({
@@ -22,4 +22,4 @@ class OffersController {
   }
 }
 
-module.exports = new OffersController();
+module.exports = new AdvertisersController();
