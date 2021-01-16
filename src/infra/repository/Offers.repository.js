@@ -41,6 +41,10 @@ class OffersService {
         "url",
       ]);
   }
+
+  async destroy({ id }) {
+    return await connection("offers").where({ id }).del();
+  }
 }
 
 module.exports = new OffersService();

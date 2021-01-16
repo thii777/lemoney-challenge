@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const configuration = require("../../../knexfile");
 
-const env = "development";
+const env = process.env.NODE_ENV || "development";
 
 const connection = knex(configuration[env]);
 

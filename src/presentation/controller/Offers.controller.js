@@ -12,7 +12,7 @@ class OffersController {
         });
       }
 
-      return res.status(201).json(results);
+      return res.status(201).json(results[0]);
     } catch (error) {
       console.log(error);
       return res
@@ -41,6 +41,21 @@ class OffersController {
       offers = await OffersService.update({ payload: offers, id: params.id });
 
       return res.status(200).json(offers);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .send({ statusCode: 500, message: "Sorry, something broke" });
+    }
+  }
+
+  async destroy({ params }, res) {
+    try {
+      await OffersService.destroy({ id: params.id });
+
+      return res
+        .status(200)
+        .send({ statusCode: 200, message: "Deleted sucessfully" });
     } catch (error) {
       console.error(error);
       return res

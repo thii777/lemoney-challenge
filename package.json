@@ -5,7 +5,9 @@
   "main": "",
   "scripts": {
     "dev": "nodemon src/main/server.js",
-    "test": "jest --watchAll"
+    "pretest": "NODE_ENV=test knex migrate:latest",
+    "test": "NODE_ENV=test jest",
+    "posttest": "NODE_ENV=test knex migrate:rollback --all"
   },
   "jest": {
     "testEnvironment": "node"

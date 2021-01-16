@@ -26,6 +26,10 @@ class OffersService {
   async update({ payload, id }) {
     return await OffersRepository.update(payload, id);
   }
+
+  async destroy({ id }) {
+    return await OffersRepository.destroy({ id });
+  }
 }
 
 module.exports = new OffersService();

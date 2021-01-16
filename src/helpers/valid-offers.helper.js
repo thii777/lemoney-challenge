@@ -6,7 +6,7 @@ module.exports = async (offers) => {
   let enable = [];
   let disable = [];
 
-  for (let offer of offers) {
+  for (const offer of offers) {
     let starts_at = await date.offerDate(offer.starts_at);
     let ends_at = await date.offerDate(offer.ends_at);
 

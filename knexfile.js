@@ -37,4 +37,22 @@ module.exports = {
       max: 10,
     },
   },
+  test: {
+    client: "pg",
+    connection: {
+      host: process.env.DATABASE_HOST_TEST,
+      database: process.env.DATABASE_NAME_TEST,
+      user: process.env.DATABASE_USER_TEST,
+      password: process.env.DATABASE_PASSWORD_TEST,
+    },
+    migrations: {
+      directory: "./src/infra/database/migrations",
+    },
+    seeds: { directory: "./src/infra/seeds" },
+    useNullAsDefault: true,
+    pool: {
+      min: 1,
+      max: 10,
+    },
+  },
 };
