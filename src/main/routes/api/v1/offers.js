@@ -9,4 +9,10 @@ routes
   .put("/offers/:id", OffersController.update)
   .delete("/offers/:id", OffersController.destroy);
 
+const methods = ["post", "get", "put", "delete"];
+
+for (const method of methods) {
+  routes[method]("*", InvalidController.handle);
+}
+
 module.exports = routes;
