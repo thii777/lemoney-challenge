@@ -1,8 +1,7 @@
 const OffersRepository = require("../../infra/repository/Offers.repository");
 const { isValidFields } = require("../validator/validField");
 const validOffers = require("../../helpers/valid-offers.helper");
-const Parallel = require("../../helpers/parallel.helper");
-const alterToDisable = require("../../helpers/alter-to-disable");
+const ChangeState = require("../../helpers/change-state.helper");
 
 class OffersService {
   async store({ payload }) {
@@ -14,20 +13,14 @@ class OffersService {
   }
 
   async list({ page }) {
-    let offers = await OffersRepository.list({ page });
+    const offers = await OffersRepository.list({ page });
 
     let { enable, disable } = await validOffers(offers);
 
-    disable = alterToDisable(disable);
+    await ChangeState.disable(disable, OffersRepository, offers);
+    const able = ChangeState.enable(enable, OffersRepository, offers);
 
-    const parallel = new Parallel({
-      items: disable,
-      repository: OffersRepository,
-      method: "update",
-    });
-    await parallel.execute(offers);
-
-    return enable;
+    return able;
   }
 }
 

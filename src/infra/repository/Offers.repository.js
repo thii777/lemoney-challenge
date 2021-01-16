@@ -10,7 +10,7 @@ class OffersService {
       .join("advertisers", "offers.advertiser_id", "advertisers.id")
       .limit(10)
       .offset((page - 1) * 10)
-      .where({ state: "enable" })
+      // .where({ state: "enable" })
       .orderBy("premium", "desc")
       .select(
         { id: "offers.id" },
@@ -25,8 +25,6 @@ class OffersService {
   }
 
   async update(offers) {
-    delete offers.advertiser_name;
-
     return await connection("offers")
       .where({ id: offers.id })
       .update(offers, ["state"]);
