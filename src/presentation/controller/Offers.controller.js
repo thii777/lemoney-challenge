@@ -35,6 +35,19 @@ class OffersController {
         .send({ statusCode: 500, message: "Sorry, something broke" });
     }
   }
+
+  async update({ body: offers, params }, res) {
+    try {
+      offers = await OffersService.update({ payload: offers, id: params.id });
+
+      return res.status(200).json(offers);
+    } catch (error) {
+      console.error(error);
+      return res
+        .status(500)
+        .send({ statusCode: 500, message: "Sorry, something broke" });
+    }
+  }
 }
 
 module.exports = new OffersController();

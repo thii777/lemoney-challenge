@@ -23,9 +23,15 @@ class OffersService {
       );
   }
 
-  async update(offers) {
+  async updateState(offers) {
     return await connection("offers")
       .where({ id: offers.id })
+      .update(offers, ["state"]);
+  }
+
+  async update(offers, id) {
+    return await connection("offers")
+      .where({ id })
       .update(offers, [
         "state",
         "premium",

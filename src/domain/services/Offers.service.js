@@ -22,6 +22,10 @@ class OffersService {
 
     return able;
   }
+
+  async update({ payload, id }) {
+    return await OffersRepository.update(payload, id);
+  }
 }
 
 module.exports = new OffersService();

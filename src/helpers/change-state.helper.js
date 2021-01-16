@@ -18,7 +18,7 @@ class ChangeState {
       parallelDisable = new Parallel({
         items: disable,
         repository: OffersRepository,
-        method: "update",
+        method: "updateState",
       });
       await parallelDisable.execute(offers);
     })();
@@ -43,7 +43,7 @@ class ChangeState {
       parallelEnable = new Parallel({
         items: enable,
         repository: OffersRepository,
-        method: "update",
+        method: "updateState",
       });
       await parallelEnable.execute(offers);
     })();
