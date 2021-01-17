@@ -12,6 +12,13 @@ class AdvertisersController {
         });
       }
 
+      if (results.checkAdvertiserName) {
+        return res.status(400).json({
+          statusCode: 400,
+          message: "Advertiser already exist",
+        });
+      }
+
       return res.status(201).json(results);
     } catch (error) {
       console.error(error);

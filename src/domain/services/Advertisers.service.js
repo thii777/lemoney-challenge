@@ -7,7 +7,14 @@ class AdvertisersService {
 
     if (validField.error) return validField;
 
+    const [checkAdvertiserName] = await AdvertisersRepository.get(payload);
+    if (checkAdvertiserName) return { checkAdvertiserName: true };
+
     return await AdvertisersRepository.store({ payload });
+  }
+
+  async get({ payload }) {
+    return await AdvertisersRepository.get(payload);
   }
 }
 
