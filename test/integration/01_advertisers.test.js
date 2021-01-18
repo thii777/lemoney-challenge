@@ -7,6 +7,9 @@ describe("POST /api/v1/advertisers", () => {
       advertiser_name: "Walmart",
     });
     expect(response.status).toBe(201);
+    expect(response.body).toMatchObject({
+      advertiser_name: "Walmart",
+    });
   });
 
   it("should return 400 when advertisers already exist", async () => {
@@ -16,7 +19,7 @@ describe("POST /api/v1/advertisers", () => {
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       statusCode: 400,
-      message: "advertiser already exist",
+      message: "Advertiser already exist",
     });
   });
 });

@@ -3,22 +3,21 @@ const app = require("../../src/main/app");
 
 describe("POST /api/v1/offers", () => {
   it("should return 201 when offer is successfully created", async () => {
+    const { body } = await request(app).post("/api/v1/advertisers").send({
+      advertiser_name: "Pão de açucar",
+    });
+
     const response = await request(app).post("/api/v1/offers").send({
-      advertiser_id: 1,
-      url:
-        "https://www.walmart.com/ip/LG-TONE-Free-HBS-FN4-Bluetooth-Wireless-Stereo-Earbuds-with-Meridian-Audio-Black/892215549",
-      description:
-        "LG TONE Free HBS-FN4 Bluetooth® Wireless Stereo Earbuds with Meridian Audio, Black",
+      advertiser_id: body.id,
+      url: "https://www.walmart.com/ip/LG-TONE-Free-HBS/892215549",
+      description: "LG TONE Free HBS-FN4 Bluetooth",
       starts_at: "2021-01-10T00:27:25.000Z",
       ends_at: "2021-01-25T23:59:00.000Z",
       premium: false,
     });
-    expect(response.status).toBe(201);
+
+    await expect(response.status).toBe(201);
     expect(response.body).toMatchObject({
-      url:
-        "https://www.walmart.com/ip/LG-TONE-Free-HBS-FN4-Bluetooth-Wireless-Stereo-Earbuds-with-Meridian-Audio-Black/892215549",
-      description:
-        "LG TONE Free HBS-FN4 Bluetooth® Wireless Stereo Earbuds with Meridian Audio, Black",
       starts_at: "2021-01-10T00:27:25.000Z",
       ends_at: "2021-01-25T23:59:00.000Z",
       premium: false,
@@ -27,8 +26,7 @@ describe("POST /api/v1/offers", () => {
 
   it("should return 400 if missing some data", async () => {
     const response = await request(app).post("/api/v1/offers").send({
-      description:
-        "LG TONE Free HBS-FN4 Bluetooth® Wireless Stereo Earbuds with Meridian Audio, Black",
+      description: "LG TONE Free HBS-FN4 Bluetooth",
       starts_at: "2021-01-10T00:27:25.000Z",
       ends_at: "2021-01-25T23:59:00.000Z",
       premium: false,
@@ -36,23 +34,36 @@ describe("POST /api/v1/offers", () => {
     expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       statusCode: 400,
-      message: `missing data: ${results.error}`,
+      message: "missing data: advertiser_id,url",
     });
   });
 
-  it("should return 400 if date of the offers has wrong", async () => {
+  it("should return 400 if advertiser_id does not exist", async () => {
     const response = await request(app).post("/api/v1/offers").send({
-      description:
-        "LG TONE Free HBS-FN4 Bluetooth® Wireless Stereo Earbuds with Meridian Audio, Black",
+      advertiser_id: 777,
+      url: "https://www.walmart.com/ip/LG-TONE-Free-HBS/892215549",
+      description: "LG TONE Free HBS-FN4 Bluetooth",
       starts_at: "2021-01-10T00:27:25.000Z",
-      ends_at: "2021-01-25T23:59:00.000Z",
-      premium: false,
     });
 
-    expect(response.status).toBe(400);
+    await expect(response.status).toBe(400);
     expect(response.body).toMatchObject({
       statusCode: 400,
-      message: `date has wrong`,
+      message: "Advertiser does not exist",
     });
   });
+
+  // it("should return 400 id start date is greater then end date", async () => {
+  //   const response = await request(app).post("/api/v1/offers").send({
+  //     description: "LG TONE Free HBS-FN4 Bluetooth® ",
+  //     starts_at: "2021-01-25T00:27:25.000Z",
+  //     ends_at: "2021-01-10T23:59:00.000Z",
+  //     premium: false,
+  //   });
+  //   expect(response.status).toBe(400);
+  //   expect(response.body).toMatchObject({
+  //     statusCode: 400,
+  //     message: "start date cannot be greater then end date",
+  //   });
+  // });
 });
