@@ -2,15 +2,13 @@ const Parallel = require("./parallel.helper");
 
 class ChangeState {
   disable(toDiseble, OffersRepository, offers) {
-    const disable = toDiseble.map((item) => ({
-      id: item.id,
-      premium: item.premium,
-      state: "disable",
-      starts_at: item.starts_at,
-      ends_at: item.ends_at,
-      description: item.description,
-      url: item.url,
-    }));
+    const disable = toDiseble.map((item) => {
+      delete item.advertiser_name;
+      return {
+        ...item,
+        state: "disable",
+      };
+    });
 
     let parallelDisable;
 
@@ -27,15 +25,13 @@ class ChangeState {
   }
 
   enable(toEnable, OffersRepository, offers) {
-    const enable = toEnable.map((item) => ({
-      id: item.id,
-      premium: item.premium,
-      state: "enable",
-      starts_at: item.starts_at,
-      ends_at: item.ends_at,
-      description: item.description,
-      url: item.url,
-    }));
+    const enable = toEnable.map((item) => {
+      delete item.advertiser_name;
+      return {
+        ...item,
+        state: "enable",
+      };
+    });
 
     let parallelEnable;
 

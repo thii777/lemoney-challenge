@@ -1,3 +1,4 @@
+const AdvertisersRepository = require("../../infra/repository/Advertisers.repository");
 const OffersRepository = require("../../infra/repository/Offers.repository");
 const { isValidFields } = require("../validator/validField");
 const validOffers = require("../../helpers/valid-offers.helper");
@@ -5,9 +6,17 @@ const ChangeState = require("../../helpers/change-state.helper");
 
 class OffersService {
   async store({ payload }) {
-    const validField = await isValidFields(payload, ["url", "description"]);
+    const validField = await isValidFields(payload, [
+      "advertiser_id",
+      "url",
+      "description",
+      "starts_at",
+    ]);
 
     if (validField.error) return validField;
+
+    const [checkAdvertiser] = await AdvertisersRepository.getById(payload);
+    if (!checkAdvertiser) return { checkAdvertiser: true };
 
     return await OffersRepository.store({ payload });
   }

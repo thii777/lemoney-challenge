@@ -19,7 +19,7 @@ class AdvertisersController {
         });
       }
 
-      return res.status(201).json(results);
+      return res.status(201).json(results[0]);
     } catch (error) {
       console.error(error);
       return res

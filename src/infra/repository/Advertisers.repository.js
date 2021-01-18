@@ -5,9 +5,15 @@ class AdvertisersService {
     return await connection("advertisers").returning("*").insert(payload);
   }
 
-  async get({ advertiser_name }) {
+  async getByName({ advertiser_name }) {
     return await connection("advertisers")
       .where({ advertiser_name })
+      .select("*");
+  }
+
+  async getById({ advertiser_id }) {
+    return await connection("advertisers")
+      .where({ id: advertiser_id })
       .select("*");
   }
 }

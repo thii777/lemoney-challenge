@@ -12,6 +12,13 @@ class OffersController {
         });
       }
 
+      if (results.checkAdvertiser) {
+        return res.status(400).json({
+          statusCode: 400,
+          message: "Advertiser does not exist",
+        });
+      }
+
       return res.status(201).json(results[0]);
     } catch (error) {
       console.log(error);
@@ -40,7 +47,7 @@ class OffersController {
     try {
       offers = await OffersService.update({ payload: offers, id: params.id });
 
-      return res.status(200).json(offers);
+      return res.status(200).json(offers[0]);
     } catch (error) {
       console.error(error);
       return res
