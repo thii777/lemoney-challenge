@@ -29,26 +29,12 @@ ficar parando o container e subindo ele novamente a cada mudança que você fize
 #### Cria Advertiser
 
 ```bash
-
-]'
-```
-
-#### Lista Advertiser
-
-```bash
-
-```
-
-#### Atualiza advertiser
-
-```bash
-
-```
-
-#### Deleta advertiser
-
-```bash
-
+curl --request POST \
+  --url http://localhost:3777/api/v1/advertisers \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"advertiser_name": "Nagdumo"
+}'
 ```
 
 ## Offers:
@@ -56,23 +42,49 @@ ficar parando o container e subindo ele novamente a cada mudança que você fize
 #### Cria oferta
 
 ```bash
-
+curl --request POST \
+  --url http://localhost:3777/api/v1/offers \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"advertiser_id": 12,
+	"url": "https://www.walmart.com/ip/LG-TONE-Free-HBS-FN4-Bluetooth-Wireless-Stereo-Earbuds-with-Meridian-Audio-Black/892215549",
+	"description": "LG TONE Free HBS-FN4 Bluetooth® Wireless Stereo Earbuds with Meridian Audio, Black",
+	"starts_at": "2021-01-10T00:27:25",
+	"ends_at": "2021-01-25T23:59:00",
+	"premium": true
+}'
 ```
 
 #### Lista ofertas
 
 ```bash
-
+curl --request GET \
+  --url 'http://localhost:3777/api/v1/offers?page=1' \
+  --header 'Content-Type: application/json'
 ```
 
 #### Atualiza oferta
 
 ```bash
-
+curl --request PUT \
+  --url http://localhost:3777/api/v1/offers/39 \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"starts_at": "2021-01-24T00:27:25.000Z",
+	"ends_at": "2021-01-25T23:59:00.000Z",
+	"premium": false
+}'
 ```
 
 #### Deleta oferta
 
 ```bash
-
+curl --request PUT \
+  --url http://localhost:3777/api/v1/offers/39 \
+  --header 'Content-Type: application/json' \
+  --data '{
+	"starts_at": "2021-01-24T00:27:25.000Z",
+	"ends_at": "2021-01-25T23:59:00.000Z",
+	"premium": false
+}'
 ```
